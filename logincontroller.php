@@ -2,6 +2,7 @@
     require 'config.php';
     require 'lib.php';
 
+    // Choosing available modules by using get method
     if ($_SERVER['REQUEST_METHOD'] == 'GET') 
     { 						
         $Module = isset($_GET['m']) ? $_GET['m'] : '';
@@ -12,6 +13,32 @@
         elseif($Module == 'home')
             $Module = 'Home';
     }	
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+	{
+		if (isset($_POST['PersonID']) && $_POST['PersonID'] != '') 
+		{			
+			$_SESSION['PersonID'] = $_POST['PersonID'];
+			$SQLValidatePerson = $RMPDO->prepare("SELECT * FROM people WHERE (EMailAddress = '".$_SESSION['PersonID']."' OR MobileNumber = '".$_SESSION['PersonID']."') ");			
+			$SQLValidatePerson->execute();					
+			$ValidatePerson = $SQLValidatePerson->fetch(PDO::FETCH_ASSOC);			
+			if (!isset($ValidatePerson['Slno']))
+			{	
+				$_SESSION['PersonID'] = '';				
+				$_SESSION['Person'] = '';
+				$_SESSION['EMailAddress'] = '';
+				$_SESSION['MobileNumber'] = '';
+				echo "Login ID - $_POST[PersonID] is not registered.\r\nPlease retry with your registered EMail Address or Mobile Number.";
+				header('Location: index.php');
+				die;	
+			}
+			elseif ($ValidatePerson['Slno'] != '')
+			{				
+				$_SESSION['PersonID'] = $ValidatePerson['Slno'];
+				$_SESSION['Person'] = $ValidatePerson['Person'];
+				$_SESSION['EMailAddress'] = $ValidatePerson['EMailAddress'];										
+			}							
+		}			
+	}
 ?>
 
 <!DOCTYPE html>
@@ -20,10 +47,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Redirect Mall</title>
+        <!-- included bootstrap cdn css link -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body>
-            <?php        
+            <?php   
+                // after successfull login or sign up user able view this module     
                 if($Module == 'Home')
                 {
             ?>
@@ -77,6 +106,7 @@
                     </form>
             <?php
                 }
+                //Login Form collect the input data and validate the data
                 elseif($Module == 'Log In')
                 {
             ?>
@@ -94,6 +124,7 @@
                     </form>			
             <?php 
                 }
+                // Sign up form take all required information from user and it will post for insert
                 elseif($Module == 'Sign Up')
                 {
             ?>
@@ -136,6 +167,7 @@
             <?php 
                 }
             ?>	
+            <!-- included bootstrap cdn js link -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
