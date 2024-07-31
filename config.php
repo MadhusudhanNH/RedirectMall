@@ -11,6 +11,7 @@
     }
     // By creating session we can avoid user to login multiple times.
 
+    //connecting database by using PDO
     try
     {
         $RMPDO = new PDO('mysql:host=localhost:3306;dbname=redirectmall', 'redirectmall', 'RM@1234');
