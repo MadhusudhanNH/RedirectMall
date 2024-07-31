@@ -1,8 +1,10 @@
 <?php
     require 'config.php';
     $_SESSION['Messages'] = null;
+    // here data is received using post request method & form
     if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 	{
+        //according to specified Submitted values it will performs Create User , Login User, Logout user.
         if ($_POST['UserSubmitForm'] == 'Create User')
 		{
             $SQLEchoUsers = $RMPDO->prepare("SELECT * FROM tblusers");
