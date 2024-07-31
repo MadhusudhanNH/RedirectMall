@@ -21,5 +21,3 @@ Guidance for Database connection:
 4- Connect database with PHP by using dbname, username, password present in config.php or you can add change as per your database credentials.
 
 After successfull connection you can open index.php file.
-
-Thank you.
