@@ -1,6 +1,5 @@
 <?php
-    require 'config.php';
-    $_SESSION['Messages'] = null;
+    require_once 'config.php';
     // here data is received using post request method & form
     if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 	{
@@ -22,7 +21,6 @@
                     }
                     else
                     {
-                        $_SESSION['Messages'] = "User already exists. please log in";
                         header('Location: index.php');
                         die;
                     }
@@ -36,13 +34,11 @@
             }
             if($DBAID > 0)
             {
-				$_SESSION['Person'] = $_POST['UserName'];
-                header('Location: logincontroller.php?m=home');
+                header('Location: index.php');
                 die;	
             }
             else
             {
-                $_SESSION['Messages'] = "Error - While creating new user";
                 header('Location: index.php');
                 die;
             }   	
@@ -58,13 +54,11 @@
                 {
                     if($EchoUser['EMailAddress'] == $_POST['PersonID'] || $EchoUser['MobileNumber'] == $_POST['PersonID'])
                     {
-                        $_SESSION['Person'] = $EchoUser['Person'];
                         header('Location: logincontroller.php?m=home');
 				        die;	
                     }
                     else
                     {
-                        $_SESSION['Messages'] = "This - ".$_POST['PersonID']." Email id / Mobile Number not registered. please retry";
                         header('Location: index.php');
                         die;
                     }
@@ -90,5 +84,17 @@
             $RMPDO = null;		
             header('Location: index.php');
         }
+    }
+
+    //Function to display data in index.php
+    function fetchData($rmmysqli, $query)
+    {
+        $tblusersResult = mysqli_query($rmmysqli, $query);
+        $tblusersData = array();
+        while ($row = mysqli_fetch_assoc($tblusersResult))
+        {
+            $tblusersData [] = $row;
+        }
+        return $tblusersData;
     }
 ?>
