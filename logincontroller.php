@@ -124,48 +124,6 @@
                     </form>			
             <?php 
                 }
-                // Sign up form take all required information from user and it will post for insert
-                elseif($Module == 'Sign Up')
-                {
-            ?>
-                    <h1 align = 'center'> <strong>Registration Form</strong></h1>	<br>	
-                    <form name="UserForm" id="UserForm" action="lib.php" method="post">
-                        <div class="mb-6" align="center"> 
-                            <label align="left" class="col-sm-3 col-form-label" for="UserName">Name <font color="red">*</font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="UserName" name="UserName" required placeholder="Enter User Name">
-                            </div>
-                        </div>
-                        <div class="mb-6" align="center"> 
-                            <label align="left" class="col-sm-3 col-form-label" for="EMailAddress">E-Mail <font color="red">*</font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="EMailAddress" name="EMailAddress" required placeholder="Enter mail id">
-                            </div>
-                        </div>
-                        <div class="mb-6" align="center"> 
-                            <label align="left" class="col-sm-3 col-form-label" for="MobileNumber">Phone Number <font color="red">*</font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="MobileNumber" name="MobileNumber" required placeholder="Mobile number">
-                            </div>
-                        </div>
-                        <div class="mb-6" align="center"> 
-                            <label align="left" class="col-sm-3 col-form-label" for="City">City <font color="red">*</font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="City" name="City" required placeholder="Enter City name">
-                            </div>
-                        </div>
-                        <div class="mb-6" align="center"> 
-                            <label align="left" class="col-sm-3 col-form-label" for="StateUT">State <font color="red">*</font></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="StateUT" name="StateUT" required placeholder="Enter State name">
-                            </div>
-                        </div><br>
-                        <div class="mb-6" align="center"> 
-                            <button type="submit" name="UserSubmitForm" id="UserSubmitForm" class="btn btn-primary" value="Create User">Submit</button>
-                        </div>
-                    </form>			
-            <?php 
-                }
             ?>	
             <!-- included bootstrap cdn js link -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
